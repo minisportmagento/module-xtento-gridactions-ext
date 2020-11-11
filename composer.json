@@ -8,6 +8,9 @@
     "type": "magento2-module",
     "version": "1.0.0",
     "license": "MIT",
+    "require": {
+        "xtento/gridactions": "^2.3.5"
+    },
     "autoload": {
         "files": [ "registration.php" ],
         "psr-4": {
