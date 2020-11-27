@@ -41,9 +41,10 @@ class SalesOrderGridPlugin
 
             $subject->getSelect()->joinLeft(
                 $tableName,
-                $tableName . '.order_id = main_table.' . $primaryKey,
-                ['gridactions_tracking' => $tableName . '.track_number']
+                $tableName . '.order_id = main_table.' . $primaryKey
             );
+
+            $subject->getSelect()->distinct();
         }
 
         return null;
