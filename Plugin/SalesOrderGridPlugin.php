@@ -41,7 +41,8 @@ class SalesOrderGridPlugin
 
             $subject->getSelect()->joinLeft(
                 $tableName,
-                $tableName . '.order_id = main_table.' . $primaryKey
+                $tableName . '.order_id = main_table.' . $primaryKey,
+                []
             );
 
             $subject->getSelect()->distinct();
