@@ -3,6 +3,7 @@
 namespace Minisport\XtentoGridActionsExt\Plugin;
 
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Sales\Model\ResourceModel\Order\Grid\Collection;
 
 class SalesOrderGridPlugin
@@ -11,6 +12,14 @@ class SalesOrderGridPlugin
      * @var boolean
      */
     private $_mapUpdated = false;
+
+    private TimezoneInterface $timeZone;
+
+    public function __construct(
+        TimezoneInterface $timeZone
+    ) {
+        $this->timeZone = $timeZone;
+    }
 
     /**
      * Add tracking number field to field map
@@ -25,6 +34,16 @@ class SalesOrderGridPlugin
             $tableName = $subject->getResource()->getTable('sales_shipment_track');
             $subject->addFilterToMap('gridactions_tracking', $tableName . '.track_number');
             $this->_mapUpdated = true;
+        }
+
+        if ($field === 'created_at') {
+            if (is_array($condition)) {
+                foreach ($condition as $key => $value) {
+                    $condition[$key] = $this->timeZone->convertConfigTimeToUtc($value);
+                }
+            }
+
+            return ['main_table.created_at', $condition];
         }
     }
 
