@@ -6,7 +6,7 @@
         "minisport"
     ],
     "type": "magento2-module",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "license": "MIT",
     "require": {
         "xtento/gridactions": "^2.3.5"
